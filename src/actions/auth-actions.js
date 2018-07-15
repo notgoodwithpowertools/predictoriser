@@ -1,4 +1,4 @@
-import firebase, { firebaseRef, githubProvider, facebookProvider} from '../api/firebase/index.js';
+import firebase, { firestoreDB, firebaseRef, githubProvider, facebookProvider} from '../api/firebase/index.js';
 import { setMsg } from './msg-actions';
 // export var login = (uid) => {
 //   return {
@@ -297,6 +297,24 @@ export var addUserToLeaderBoard = (user, firstname, imageURL) => {
     .then(() => user)
 }
 
+export var addUserToPredictorList = (uid) => {
+  console.log("Adding user to Predictor List in Firestore...", uid);
+  var docRef = firestoreDB.collection('users').doc(uid);
+  // var Ada = {
+  //    first: 'Ada',
+  //    last: 'Lovelace',
+  //    born: 1815
+  // };
+  return docRef.set({uid: uid});
+
+  // return firebaseRef.child(`leaderboard/${user.uid}/`)
+  //   .set({
+  //     name: firstname,
+  //     imageURL: imageURL
+  //   })
+  //   .then(() => user)
+}
+
 export var registerUser = (email, password, firstname) => {
   return (dispatch, getState) => {
     //var testEmail = "aqwerty543@gmail.com";
@@ -310,13 +328,26 @@ export var registerUser = (email, password, firstname) => {
       console.log("Result UID:", result.user.uid);
       saveUser(result.user, firstname);
       console.log("Registration worked...", result);
+      return result.user.uid;
       // addUserToLeaderBoard(result, firstname);
     }, (error) => {
       console.log("Unable to register", error);
       dispatch(setMsg(error.message));
-    });
+    })
+    // .then((uid) => {
+    //   console.log("Saving User reference " + uid + "in Firestore...");
+    //   addUserToPredictorList(uid)
+    // }, (error) => {
+    //   console.log("Firestore user record creation failed");
+    // });
   };
 };
+
+// export var registerUser2 = (email, password, firstname) => {
+//   return (dispatch, getState) => {
+//     firebase.auth().createUserWithEmailAndPassword(email, password).then((result) => {}, (error) => {})
+//   }
+// };
 
 export function saveUser (user, firstname) {
   console.log("Save User:", user);
@@ -342,6 +373,10 @@ export function saveUser (user, firstname) {
     .then(() => {
       // Functions after registration
       addUserToLeaderBoard(user, firstname, defURL)
+    })
+    .then(() => {
+      // Functions after registration
+      addUserToPredictorList(user.uid)
     })
     .then(() => user)
 }

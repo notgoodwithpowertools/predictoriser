@@ -1,4 +1,4 @@
-import firebase, {firestoreDB, firebaseRef, githubProvider} from './api/firebase/index.js';
+import firebase, {firestoreDB, githubProvider} from './firebase/index.js';
 
 export var startGitHubLogin = () => {
   return (dispatch, getState) => {
@@ -9,7 +9,6 @@ export var startGitHubLogin = () => {
     });
   };
 };
-
 
 export var startEmailLogin = (email, password) => {
   return (dispatch, getState) => {
@@ -24,7 +23,6 @@ export var startEmailLogin = (email, password) => {
     });
   };
 };
-
 
 export var registerUser = (email, password) => {
   return (dispatch, getState) => {

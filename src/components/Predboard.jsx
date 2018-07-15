@@ -1,5 +1,85 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import '../css/predList.css';
+import { filterPredsUid } from '../actions/pred-actions.js';
+// import { firestoreDB } from '../api/firebase/index.js';
+
+
+import PredictionCard2 from './PredictionCard2.jsx';
+// import Button from '@material-ui/core/Button';
+
+export class Predboard extends React.Component {
+
+  // constructor(props){
+  //   super(props);
+  // }
+
+
+  render () {
+    var { preds, sort, userid } = this.props;
+
+    console.log("Preds sort:", sort);
+
+    var getPredList = () => {
+      if (preds.length > 0) {
+        var filteredPreds = preds;
+        if (sort === 'user') {
+          filteredPreds = filterPredsUid(preds, userid);
+        }
+        // console.log("filteredPreds:", filteredPreds);
+        if (filteredPreds.length > 0) {
+
+          return filteredPreds.map( (pred, index) => {
+            // console.log("Pred ID:", pred.id + ' Index:', index);
+
+            return (
+              <PredictionCard2 key={index} {...pred} />
+            )
+
+          });
+        }
+        else {
+          return (<p>No items to display</p>)
+        }
+      };
+
+
+      return (
+        <p>No Prediction Cards to display...</p>
+      )
+    }
+
+    return (
+      <div className="predList">
+        { getPredList() }
+      </div>
+
+    )
+  }
+
+};
+
+/*
+function List() {
+
+  firestoreDB.collection('users').get()
+  .then((snapshot) => {
+    snapshot.forEach((doc) => {
+      console.log(doc.id, '=>', doc.data());
+    });
+  })
+  .catch((err) => {
+    console.log('Error getting documents', err);
+  });
+
+  return (
+    <Button variant="raised" color="primary">
+      Hello World
+    </Button>
+  );
+}
+
+
 // import Player from './Player.jsx';
 // import '../css/leaderboard.css';
 
@@ -9,7 +89,7 @@ import {connect} from 'react-redux';
 // import { rankPlayers } from '../api/rank.js';
 // import { getTipTotals } from '../actions/tip-actions.js';
 
-export class List extends React.Component {
+// export class List extends React.Component {
 
   // constructor (props) {
   //   super(props);
@@ -43,7 +123,7 @@ export class List extends React.Component {
     });
 */
   //} // end -- componentDidMount
-
+/*
   render () {
 
     // var sortOnTotalTips = ( a, b ) => {
@@ -115,13 +195,14 @@ export class List extends React.Component {
   }
 
 };
-
+*/
 export default connect(
   (state) => {
     return {
-
+      preds: state.preds,
+      userid: state.user.uid
     };
     //return state;
   }
 
-)(List);
+)(Predboard);

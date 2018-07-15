@@ -13,13 +13,16 @@ import {
 import './css/App.css';
 import './css/index.css';
 
-import List from './components/List.jsx';
+import Predboard from './components/Predboard.jsx';
 import About from './components/About.jsx';
 import Login from './components/Login.jsx';
 import Register from './components/Register.jsx';
 import LandingPage from './components/LandingPage.jsx';
 import User from './components/User.jsx';
 import Image from './components/Image.jsx';
+// import FormikBasic from './components/FormikBasic.jsx';
+import AddPred from './components/AddPred.jsx';
+
 
 import './css/nav.css';
 
@@ -27,6 +30,7 @@ import predict_w from './images/predict-w.png';
 import logout_img from './images/logout.png';
 import user_img from './images/man-24-128-white.png';
 import info_img from './images/information.png';
+import add_img from './images/add.png';
 
 import * as authActions from './actions/auth-actions.js';
 
@@ -73,6 +77,7 @@ export class MyApp extends React.Component {
 
           <div className='nav'>
           <ul className='nav_ul'>
+            <li className='nav_li'><NavLink to="/add" activeStyle={activeStyle}><Image src={add_img} height={25} width={25} /><div className='nav_text'>New</div></NavLink></li>
             <li className='nav_li'><NavLink to="/list" activeStyle={activeStyle}><Image src={predict_w} height={25} width={25} /><div className='nav_text'>Predictor</div></NavLink></li>
             <li className='nav_li'><NavLink to="/user" activeStyle={activeStyle}><Image src={user_img} height={25} width={25} /><div className='nav_text'>User</div></NavLink></li>
             <li className='nav_li'><NavLink to="/about" activeStyle={activeStyle}><Image src={info_img} height={25} width={25} /><div className='nav_text'>About</div></NavLink></li>
@@ -110,7 +115,8 @@ export class MyApp extends React.Component {
           )}/>
 
           <Route path="/user" component={this.protect(User)} />
-          <Route path="/list" component={this.protect(List)} />
+          <Route path="/list" component={Predboard} />
+          <Route path="/add" component={this.protect(AddPred)} />
           <Route path="/about" component={About} />
         </div>
       </Router>

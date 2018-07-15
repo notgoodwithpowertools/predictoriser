@@ -6,6 +6,7 @@ Install packages
 npm install --save react react-dom redux react-redux redux-thunk react-router-dom
 
 npm install --save firebase
+npm install --save formik
 
 npm install --save-dev redux-devtools-extension
 ```
@@ -24,3 +25,5 @@ To test
 ```
 npm run start
 ```
+Other packages needed
+- moment

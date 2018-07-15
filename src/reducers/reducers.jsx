@@ -69,6 +69,32 @@ export var msgReducer = (state = '', action) => {
   }
 }
 
+export var predictionsReducer = (state = '', action) => {
+// export var leaderboardReducer = (state = roundActions.getNextRound(), action) => {
+
+  // console.log("predictionsReducer:action.type:", action.type + ' - ' + action.predictions );
+  switch (action.type) {
+    case 'ADD_PREDICTIONS':
+    console.log("Adding Predictions...");
+    return [
+      ...state,
+      ...action.preds
+    ];
+    case 'UPDATE_PREDICTIONS':
+    console.log("Updating Predictions...");
+    return [
+      // ...state,
+      ...action.preds
+    ];
+    // case 'LOGOUT':
+    // return state;
+
+    default:
+    return state;
+  }
+
+}
+
 export var leaderboardReducer = (state = '', action) => {
 // export var leaderboardReducer = (state = roundActions.getNextRound(), action) => {
 

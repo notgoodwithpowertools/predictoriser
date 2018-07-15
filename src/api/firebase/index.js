@@ -52,10 +52,12 @@ try {
 
 }
 
-// const settings = {/* your settings... */ timestampsInSnapshots: true};
-// let firestoreDB = firebase.firestore();
-// firestoreDB.settings(settings);
-// export {firestoreDB};
+const settings = {/* your settings... */ timestampsInSnapshots: true};
+let firestoreDB = firebase.firestore();
+firestoreDB.settings(settings);
+export {firestoreDB};
+let fieldValue = firebase.firestore.FieldValue;
+export {fieldValue};
 
 export var githubProvider = new firebase.auth.GithubAuthProvider();
 export var facebookProvider = new firebase.auth.FacebookAuthProvider();

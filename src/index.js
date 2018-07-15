@@ -8,6 +8,7 @@ import registerServiceWorker from './registerServiceWorker';
 
 import { Provider } from 'react-redux';
 import * as authActions from './actions/auth-actions.js';
+import * as predActions from './actions/pred-actions.js';
 
 import firebase from './api/firebase/index.js';
 
@@ -25,6 +26,7 @@ var store = require('./store/configureStore.jsx').configure();
 
 // store.dispatch(authActions.setLoginType(loginType));
 
+store.dispatch(predActions.startLoadPreds());
 
 firebase.auth().onAuthStateChanged( (user) => {
   if (user) {
