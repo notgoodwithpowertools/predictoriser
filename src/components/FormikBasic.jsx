@@ -7,10 +7,15 @@ import Button from '@material-ui/core/Button';
 import '../css/addForm.css';
 import TestInput from './TestInput.jsx';
 
+import { getDateString } from '../api/datefuncs.js';
+
 const FormikBasic = ( props ) => {
 
   let { user } = props;
   // console.log("FormikBasic user:", user);
+
+  // get Minimum date
+
 
   return (
 
@@ -18,7 +23,8 @@ const FormikBasic = ( props ) => {
       initialValues={{
         // long: '',
         short: '',
-        dateTime: ''
+        dateTime: '',
+        dateTime2: ''
       }}
       validate={values => {
         // same as above, but feel free to move this into a class method now.
@@ -59,19 +65,22 @@ const FormikBasic = ( props ) => {
         // console.log("Touched:", touched);
 
         // Set date input field color
-        let inputColor = 'purple';
+        // let inputColor = 'purple';
+        //
+        // let inputStyle = {
+        //   color: inputColor
+        // }
 
-        let inputStyle = {
-          color: inputColor
-        }
 
+        // if (values.dateTime === '') { // if dateTime has not been set
+        //   inputStyle = {color: 'tomato'};  // set as warning color if not set
+        // }
+        // else {
+        //   inputStyle = {color: 'blue'}; // else set to active color
+        // }
 
-        if (values.dateTime === '') { // if dateTime has not been set
-          inputStyle = {color: 'tomato'};  // set as warning color if not set
-        }
-        else {
-          inputStyle = {color: 'blue'}; // else set to active color
-        }
+        // console.log("Touched:", touched);
+        // let datePlaceholder = getDateString(new Date());
 
         return (
 
@@ -79,20 +88,31 @@ const FormikBasic = ( props ) => {
           <div className='addPredPage'>
             <form autoComplete="off" onSubmit={handleSubmit}>
 
-
               <h3 className='addPredPageItem'>New Item</h3>
               <p className='addPredPageItem'>Call made by {user.firstname}</p>
               {/* <MyCSSInput /> */}
             <TestInput
 
               name="short"
+              type="textarea"
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.short || ''}
               placeholder='Enter details...'
 
             />
-          <div className='group'>
+            <TestInput
+
+              name="dateTime"
+              type="date"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.dateTime || ''}
+              min={getDateString(new Date())}
+              title="Expiry"
+
+            />
+          {/*<div className='group'>
             <input
 
               id='expiry'
@@ -107,7 +127,7 @@ const FormikBasic = ( props ) => {
             />
             <span className='bar'></span>
             <label>{'Expiry'}</label>
-          </div>
+          </div> */}
           {/* <FMKDateTime
               name="dateTime"
               onChange={handleChange}
